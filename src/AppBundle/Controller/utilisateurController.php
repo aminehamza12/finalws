@@ -30,7 +30,7 @@ class utilisateurController extends Controller
             $encoder = $this->get('security.password_encoder');
             // le mot de passe en claire est encodé avant la sauvegarde
             $encoded = $encoder->encodePassword($user, $user->getPlainPassword());
-            $user->setPlainPassword($encoded);
+            $user->setPassword($encoded);
 
             $em = $this->get('doctrine.orm.entity_manager');
             $em->persist($user);
@@ -60,9 +60,9 @@ class utilisateurController extends Controller
     private function updateUser(Request $request, $clearMissing)
     {
         $user = $this->get('doctrine.orm.entity_manager')
-            ->getRepository('AppBundle:User')
+            ->getRepository('AppBundle:utilisateur')
             ->find($request->get('id')); // L'identifiant en tant que paramètre n'est plus nécessaire
-        /* @var $user User */
+        /* @var $user utilisateur */
 
         if (empty($user)) {
             return $this->userNotFound();

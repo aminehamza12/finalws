@@ -28,7 +28,7 @@ class EmployerController extends Controller
 
             $employer = $this->getDoctrine()
                 ->getRepository('AppBundle:Employer')
-                ->find($id); // L'identifiant en tant que paramétre n'est plus nécessaire
+                ->findOneByNemp($id); // L'identifiant en tant que paramétre n'est plus nécessaire
 
             if (empty($employer)) {
                 return \FOS\RestBundle\View\View::create(['message' => 'Employer introuvable'], Response::HTTP_NOT_FOUND);

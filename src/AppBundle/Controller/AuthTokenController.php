@@ -38,7 +38,7 @@ class AuthTokenController extends Controller
 
        $encoder = $this->get('security.password_encoder');
        $isPasswordValid = $em->getRepository('AppBundle:utilisateur')
-           ->findOneByPassword($credentials->getPassword());
+           ->findOneByplainPassword($credentials->getPassword());
 
         if (!$isPasswordValid) { // Le mot de passe n'est pas correct
             return $this->invalidCredentials();
