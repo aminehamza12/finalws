@@ -26,7 +26,7 @@ class utilisateurController extends Controller
 
         $form->submit($request->request->all());
 
-
+        if ($form->isSubmitted()) {
             $encoder = $this->get('security.password_encoder');
             // le mot de passe en claire est encodé avant la sauvegarde
             $encoded = $encoder->encodePassword($user, $user->getPlainPassword());
@@ -36,7 +36,10 @@ class utilisateurController extends Controller
             $em->persist($user);
             $em->flush();
             return $user;
-
+        }
+        else{
+            return $form ;
+        }
     }
 
     /**
@@ -96,7 +99,7 @@ class utilisateurController extends Controller
 
     private function userNotFound()
     {
-        return \FOS\RestBundle\View\View::create(['message' => 'User not found'], Response::HTTP_NOT_FOUND);
+        return \FOS\RestBundle\View\View::create(['message' => 'Utilisateur non trouver'], Response::HTTP_NOT_FOUND);
     }
 
 

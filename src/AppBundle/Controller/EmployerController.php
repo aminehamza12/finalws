@@ -15,7 +15,7 @@ use FOS\RestBundle\View\ViewHandler;
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\Form\Form;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
-
+use Symfony\Component\Filesystem\Filesystem;
 class EmployerController extends Controller
 {
 
@@ -120,7 +120,14 @@ class EmployerController extends Controller
             ->setJob($request->get("job"))
             ->setSalaire($request->get("salaire"))
             ->setNemp($request->get("nemp"));
+        $filesystem = new Filesystem();
+        $filesystem->remove($employer->getImage());
+        $file=$request->files->get("image");
 
+        $fileName=md5(uniqid()).'.'.$file->guessExtension();
+        $file->move($this->getParameter('image_directory'),$fileName);
+
+        $employer->setImage($fileName);
 
             $em = $this->getDoctrine()->getManager();
             $em->merge($employer);

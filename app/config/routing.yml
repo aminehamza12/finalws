@@ -12,3 +12,9 @@ utilisateur:
 auth-tokens:
     type:     rest
     resource: AppBundle\Controller\AuthTokenController
+acme_api_soap_check:
+    path: /soap/check
+    defaults: { _controller: AppBundle:Soap:check }
+_soap:
+    path:      /soap
+    defaults:  { _controller: AppBundle:Default:index}
